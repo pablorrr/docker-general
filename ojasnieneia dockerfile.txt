@@ -1,0 +1,10 @@
+https://youtu.be/KSpgziN5qTM?list=PLkcy-k498-V5AmftzfqinpMF2LFqSHK5n
+
+from - zjakiego obrazu ma byc utworzony kontener
+copy - pelecnie kopiowania dancyh plikow z biezacego katalogu (sceizki terminla) test.txt./moj_katalog/ skpoij plik test.txxt z br kat do zdlanego kat kontenra moj katalog (jesli nie urtworzozny zosatnie utw dynamicznie)
+run - uruchamiapolecenia na stracie wewnatrz kontenera
+cmd - wykonaj jakiejs polecenie z marszu np.zaistaluj cos moga byc podawane jako arg w [] np ['ls','/test'] - beda sie koooljeno wyk w terminalu
+add - rozserzone mozliwosci copy
+workdir - ustawia  najwznijeszy katalog roboczy w kontenerze np /app
+entrypoint -podobny do cmd - roznica parametry z entrypoint nie moga byc nadpisywane w komndach docker run 
+volume - volumeny - wirtualne dyski

@@ -1,0 +1,82 @@
+/////////przyklad numer 1. czyste php bez php my admin i mysqli brak zastosowania pliku docker file////////////////////
+
+version: '3.8' - werjs a platformy docker do uzycia
+services:
+  php-apache-environment: - nazwa serwisu
+    container_name: php-apache  - nazwa kontenera (obojetnie jaka)
+    image: php:8.0-apache - nazwa obrazu  (nazwy obrazu nalezy pobierac z docker.hub)
+
+
+    volumes: - woluminy - ./php/src - przykladowa pierwsza czesc woluminu - jest to miejsce do ktrego bedzie (jakby) skpiowane srodowisko pracy(wersja php itd). tutuaj w src powinin znajdowac sie kod zrodłowy apolikacji . Jesli wczesniej struktura folderow nie zostanie ustworzona polecenie docker-compose up 
+utworzy ta strukture 
+
+- ./ -oznacza dyamiczna nazwe folderu w ktrej znjaduje sie folder w kotrym jest plik yml. 
+- przykladowa struktura  ./php/src = docker-test/php/src
+- :/var/www/html/ - miejsce w serwerch docker z ktrego  pliki beda (jakby skopiowane) do tego zrodla ./php/src
+
+      - ./php/src:/var/www/html/ - objasnione powyzej
+    ports:
+
+
+      - 8000:80  - porty dzeki ktruym mozna odpolaic apke na przeghldarce (dopisac do adrewsu localhost)
+
+/////////////przyklad nr 2  z db .//////////////////////////
+
+version: '3.8'
+services:
+    php-apache-environment:
+        container_name: php-apache
+        build: - podstwa do budowania
+            context: ./php - kontektst- w jkaim katalogu powinien sie znalezc plik dockerfile
+            dockerfile: Dockerfile - nazwa pliku docker z ktrwego beda plyneky ustawnienia
+        depends_on:- npwrd zaleznosc
+            - db - ustwienie zaleznosci
+        volumes: - wolumin
+            - ./php/src:/var/www/html/- objasnieneijak powyzej
+        ports:
+            - 8000:80
+    db: -nazwa serwisu - uslugi
+        container_name: db 
+        image: mysql
+        restart: always - restrurjzawsze gdy zmieni sie konfiguracja (njprwd uzwierztelnianie)
+        environment:- srodowisko (uwierztelnienie)
+            MYSQL_ROOT_PASSWORD: MYSQL_ROOT_PASSWORD - zmienne uwierzytelonianai przy laczenib sie z db
+            MYSQL_DATABASE: MYSQL_DATABASE
+            MYSQL_USER: MYSQL_USER
+            MYSQL_PASSWORD: MYSQL_PASSWORD
+        ports:
+            - "9906:3306" - porty z ajkich korzyts a db
+
+/// objasnienei dla dockerfile  zast w tym przypadku////
+
+FROM php:8.0-apache - nazwa obrazu
+RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli - pobranie  roszrzerzenia php mysqli i zalczenie go
+RUN apt-get update && apt-get upgrade -y - njprwd polczenie  mysqli z apache
+
+
+
+/////przyklad numer 3 dodoanie php my admin///
+phpmyadmin:
+    image: phpmyadmin/phpmyadmin - nazwa obrazu
+    ports:
+        - '8080:80' - port do laczenie sie z php my admin
+    restart: always - restratuj zawsze gdy zmineia sie konfuguracje
+    environment: - srodowsko
+        PMA_HOST: db
+    depends_on: - zaleznosc
+        - db
+
+
+dostepy dla php my admin
+login root lub ustlone w pliku (mysql_user)
+hasła jako MYSQL_ROOT_PASSWORD (wczesniej ustalone w  environemnt)
+
+
+
+
+
+
+
+
+
+

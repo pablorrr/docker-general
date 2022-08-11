@@ -1,0 +1,19 @@
+I - PRZY UZYCIU SAME TERMINALA WINDOWS
+poz zainbstalowaniu wsl i ustwianie  na domyslny wsl2 aby korzytstac z docker, nalezy otworzyc terminal windows (a nie ubuntu jesli jest!!!)
+1 wpisac  wsl ENTER(otowrrzy sie edycja linux ale z dostepem do plikow windows)
+2. domsylnym pocztakowym rootem katalogiem jest mnt od tego  wszytsko sie zaccyna nawigowac od samych partycji c d itd
+3. gdy wsl jest  uruchomione mozna korzttsac z mkomend linux docker  z dostepem do katalogow windows
+
+
+II - PRZY UZYCIU TERMINALA UBUNTU
+
+1.PO otwarciu terminala NIE  wpisywac konmndy wsl (i tek jej nie wykryje)
+2. aby nawigowac po plikach win  nalezy na start wpisac cd /mnt/c - gdzie c jest litera partycji
+
+
+
+
+
+
+
+

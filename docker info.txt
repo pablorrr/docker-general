@@ -1,0 +1,185 @@
+inne komnedy https://www.digitalocean.com/community/tutorials/how-to-remove-docker-images-containers-and-volumes
+
+sprawdzeni wp na docker:
+docker ps - pokqaze  id kontenera i obraz dla katalogu wp i db na wp
+volume  ls - nazwa woluminu
+
+
+/////////////////docker compose//////////////////////
+
+Polecenie docker-compose down usuwa kontenery i domyślną sieć, ale zachowuje bazę danych WordPress.
+docker-compose up -d - ponowne wlaczeie wp na docker
+
+Polecenie docker-compose down --volumes usuwa kontenery, domyślną sieć i bazę danych WordPress.Koniecznosc ponownej instalacji wp
+docker-compose up -d - ponowne wlaczeie wp na docker - z koniecznoscia  ponownej instalacji
+////////////////////////////////////////////////////////////////////////
+
+/////////////////docker file////////////////////////////////
+docker build <path to docker file> - zbuduje obraz na podstawie plik Dockerfile z podanej sciezki
+docker build .  - zbuduje obraz z pliku Dockerfile znajdujacego sie w boiezacym katalogu (musi byc kreopka ze spacja)
+docker run nazwa_obrazu lub id_obrazu - zbuduje kontener na podstweie podanego obrazu (nazwa kontenra zosatnie  wygenerowana losowo)(kontener moze sie nie uruchomi sie zaraz po utworzeniu)(gdy wyjdzieszz termainala konnnener  sie zatrzyma)
+docker run  -d nazwa_obrazu lub id_obrazu - stworzy kontener  gdy sie yuruchomi to nadal bedzie dizlala po wyjsciu z terminala(njprwd jest to uruchomienei w tzw tle)
+docker build --tag my_img_name .  -(z kropka na koncu) zbuduje obrazz docker foile z biezacego katalogu z nadana nazwa obrazu
+docker tag my_image:latest my_image:1.0 - wersjonowanie obraazow za pomca tagu - spowoduje zmiane domyslnego tagu latest na 1.0
+
+
+//////////////////////////////// woluminy///////////////////////
+docker volume create vol-name - stowrzy wolumnin - wolumn to wirtualny dsykslzuy do tryzmania danych na sastle w kontenerze
+docker volume ls - spr jakie sa woluminy
+docker volume rm vol-name -usnie podany wolumin
+docker run --volume volume_name:/catalog_name image_name - podpiecie katalogu roboczego pod wolumin w podanym obrazie
+//////////////////////////////////////////////////////////////////////
+
+docker run image_name env - uruchomi  kontenr i wypisze zmienne sroddowiskowe w kontnerze  
+
+
+/////////////////docker sieci///////////
+bridge - domyslan siec - podlaczone sa wszytskie kontenery domyslnie
+docker network ls - listowanie wszutskicjh seicie docker
+docker network inspect network_name - wyswietli wszytskie szczegoly  danej sieci
+docker network create --driver bridge my-network-name - stworzy  customowa siec , driver bridge - nazwa sterownika 
+docker run -dit --name container_name --network network-name image_name - stworzenie konnenera i podlaczenie go do danej sieci
+docker network --help - wwszytskie dostepne polecenia dla network
+
+////////////////////////////////////
+
+docker run -dit --name contB --network my-network busybox
+
+docker attach cont_name - podlaczenie sie pod danyc kontener (w momencie przelaczenia sie na inny)
+
+
+
+
+
+///////////////////////////
+
+docker image inspect id_obrazu sprawdzenie zawartosci obrazu szczegoly phhp  db itd werrsje   - 
+
+najwzniejkze  komendy docker ponizej;
+https://medium.com/edureka/docker-commands-29f7551498a8
+
+1.docker --version - werjsa docker
+2. docker --pull image_name - sciaganie obrazu
+
+////listowanie kontenerow////////////////////////////////
+3. 1docker ps - wylistowanie  uruchomnionych kontnerow
+3.2 docker ps -a - wyslistowanie wszytskich  kontenerow uruchomninych i nie uruchomionych
+3.3 docker ps --filter "status=exited" lub docker ps -f "status=exited"
+///////////////////////////////////////////////////////////////////
+
+
+///////////////listowanie obrazow////
+1.docker images - wyswietlenie wystkich bobrazow na kompie
+2. docker image ls - to samo
+//////////////////////////////////////////////
+
+
+
+//////////upploading  obraazow do  repo///////////////
+1. docker tag image_name user_name/image name - zmiania nazwy obrazzu aby mogla byc przyjeta do repo(publicznie)
+2. docker login- logowanie do docker repo hub
+3. docker push user_name/image_name
+
+
+/////////////////////////////////////////////////
+
+///////////////////////dostep do wewnetrznych polecen i narzedziw kontenerze - uruchamianie polecen zdalnie(nie lokalnie!!!!)////////////////
+4.  docker exec -it <container id> bash dostep do wewnterzengo terminala w kontenerze
+4.1 docker exec -it <container id> (it - interactive terminal) -dostep do okreslonych narzrdzi w kontenerze np  artisan lub composer - wykonywanie wewnetrz 
+kontenera tych polecen
+///////////////////////////////////////
+5.1 docker start <container id> - starat dabnego kontenera
+5.2  docker stop <container id> -  zatrzymanie danego kontenera
+
+///////////////////spopsoby tworznie kontenerow
+6.1 docker run nazwa_obrazu
+6.2 docker create nazwa_obrazu
+6.3 docker container create nazwa_obrazu
+
+uwaga!!!!
+1.jesli obraz nie bedzie  zainstalowany na dsyku  zosatanie sciagniety
+2. kontenry beda mialy nazwy nadane losowo przez docker - mozna  dawac nazwy juz prtzy tworzniu kontenera (aleto u mnie nie dizla)
+3.docker rename stara_nazwa_kont nowa_nazwa_kontenera
+//////////////////////////////////////////////////
+
+
+
+///////////////////kopiowanie plikow z kontenra i do konenera/////////
+1.docker cp  my_conatiner:/test.txt test.txt - kopiowanie pliku z kontenera do biezacego katalogu (do scezki najakije uruchomniony jewst terminal)
+2. docker cp test-2.txt  my_conatiner:/test-2.txt - koiowanie pliku z biezacej lklizacji do kontenera
+
+
+
+
+
+
+
+
+6.2 docker kill <container id>
+This command kills the container by stopping its execution immediately. The difference between ‘docker kill’ and ‘docker stop’ is that ‘docker stop’ gives the container time to shutdown gracefully, in situations when it is taking too much time for getting the container to stop, one can opt to kill it.
+7. docker commit <conatainer id> <imagename>- stworzenie nowej warstwy nowego obrazu na starym obrazie
+
+8. docker login
+This command is used to login to the docker hub repository
+9.docker push <username/image name>
+This command is used to push an image to the docker hub repository
+10. docker history image_name (lub) id_image - log dla   dane g o obrazu
+
+
+
+
+
+12. 
+14. Stop all running containers: docker stop $(docker ps -a -q)
+
+15. Delete all stopped containers: docker rm $(docker ps -a -q)
+
+16.
+ docker container ls - spr ktrore kontenerry sa ucryuchomione
+
+///////////////////////customowy obraz i kontener/////////////
+docker commit <id_container> my_custom_image_name  -tworzenie  customowego obrazu w kontenerze (tworzenie wartswy na istniejacym bazowym obrazie)
+docker run -it my_custom_image_name - utworzy dostosowany konetner na pdst cust obrazu(mzoliwosc zmiany nazwy kont)
+
+
+
+------usuwanie kontenera---------
+docker ps - listing kontenerow  docker
+1. docker stop <Container_ID>
+2,docker rm <Container_ID>
+
+----------usuwanie obrazu -----
+docker images  - wyswietlenie wystkich bobrazow na kompie
+1.docker rmi <image_ID>
+2. usuwanie wileu  obrazow na raz -  docker rmi -f <your-image-id> <your-image-id>
+3. inny sposob jak powyzej docker rmi -f $(docker images -q)
+
+uruchmianie  php my admin
+https://www.cloudsavvyit.com/13842/how-to-run-phpmyadmin-in-a-docker-container/
+ cli -docker run -d --name phpmyadmin -e PMA_ARBITRARY=1 -p 8080:80 phpmyadmin
+w przegladar4ce- localhost:8080 - dostepy takie same jak okreslone w pliku yaml
+
+
+odbudowa tylko jednego konetnera - docker-compose up --build(trzeba byc na jego sciezce aplikacji)
+
+
+
+praca  zdocker bez docker winddows  oraz plikow yaml
+
+1.sciagenaie obrazu docker --pull image_name
+
+
+///////////////////////////////docker  mini tutorial/////////////
+1.wpisz gdzikowliek w term,inlu -docker run -d -p 80:80 docker/getting-started
+2.otowrz doker desktop ikliknij open in brwser
+
+
+
+
+fajny polski tutek
+https://www.youtube.com/channel/UCTR3ihcAiLude0fZjWSAHNg
+
+zacznbij od https://www.youtube.com/watch?v=tyISdcMxTxM&list=PLkcy-k498-V5AmftzfqinpMF2LFqSHK5n&index=18
+
+
+ docker build -t django_img .

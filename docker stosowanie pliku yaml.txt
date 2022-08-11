@@ -1,0 +1,21 @@
+https://www.section.io/engineering-education/dockerized-php-apache-and-mysql-container-development-environment/
+
+1 stosowanie pliku .yaml (przykladowe tworzenie obrazu php oraz mysqli)
+
+- stowrz  katalog o dowolnej nazwie
+- stworz w nim plik o nazwie docker-compose.yml
+- skopiuj wzrocowa tresc pliku yaml(wp ,laravel,php-mysql)
+- w okreslunym woluminie stworz przykladowy kod zrodlowy do przetetsowania (znaczenie woluminu patrz plik obhjasnieniea pliku yml)
+-  w terminalu w sciezce zawierajacej folder z plikiem yaml wpisz:  docker-compose up ENTER
+
+powinien sie sciagnc oberaz z kontenerem i uruchimic srodowisko
+
+- spraedzic w docker desktop czy jest uruchomiony kntener
+- testowanie wpisac odpoiwedni numer portu uzytu w  docker-compse.yml np 8000:80  - http://localhost:8080/
+- jesli plik testowy ma nazwe index.php to nie dopisywac nic do adresu testowego loclhost jesli nie -  dopisac nazwe pliku 
+
+
+
+
+
+
