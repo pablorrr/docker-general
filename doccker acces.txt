@@ -1,7 +1,0 @@
-ID -  451doc
-login email
-pass pablozzzdocker
-
-
-
-
